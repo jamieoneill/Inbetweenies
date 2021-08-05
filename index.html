@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Inbetweenies</title>
+  <meta charset="utf-8" />
+  <meta name="description" content="Inbetweenies, A card game to be played with friends." />
+  <meta name="author" content="Jamie O'Neill">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4caf50">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="Manifest.json">
+  <!-- Jquery -->
+  <script src="dist/js/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap -->
+  <link
+    href="dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <script src="dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Style -->
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <!-- Home Menu View-->
+    <main id="Home" class="homeContainer">
+      <div class="title">
+        <h1>Inbetweenies</h1>
+      </div>
+      <div>
+        <button class="homeButton" id="newGameBtn">New Game</button>
+      </div>
+      <div>
+        <button class="homeButton" id="loadGameBtn" disabled>Continue</button>
+      </div>
+      <div>
+        <button class="homeButton" id="historyBtn">History</button>
+      </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="overlayModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body" id="modalBody"> </div>
+
+          <div class="modal-footer">
+            <button type="button" id="modalConfirm" class="btn btn-success"></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/globals.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/game.js"></script>
+</html>
