@@ -1,9 +1,13 @@
 const cacheName = "Inbetweenies";
 const staticAssets = [
+  "/",
+  "index.html",
+  "Manifest.json",
   "dist/js/jquery-3.6.0.min.js",
   "dist/css/bootstrap.min.css",
   "dist/js/bootstrap.bundle.min.js",
   "css/style.css",
+  "js/app.js",
   "js/globals.js",
   "js/home.js",
   "js/game.js",
