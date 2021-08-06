@@ -1,6 +1,5 @@
 const cacheName = "Inbetweenies";
 const staticAssets = [
-  "/",
   "index.html",
   "Manifest.json",
   "dist/js/jquery-3.6.0.min.js",
@@ -11,6 +10,7 @@ const staticAssets = [
   "js/globals.js",
   "js/home.js",
   "js/game.js",
+  "js/scoreboard.js",
   "images/avatars/avatar0.png",
   "images/avatars/avatar1.png",
   "images/avatars/avatar2.png",
@@ -42,14 +42,12 @@ self.addEventListener('install', event => {
     );
 });
 
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                if (response) {
-                    return response;
-                }
-                return fetch(event.request);
-            })
-    );
-});
+self.addEventListener('fetch', (event) => {
+    event.respondWith(async function() {
+      try {
+        return await fetch(event.request);
+      } catch (err) {
+        return caches.match(event.request);
+      }
+    }());
+  });
