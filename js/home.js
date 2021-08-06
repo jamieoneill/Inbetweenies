@@ -1,6 +1,5 @@
 // HOME //
 $("#newGameBtn").on("click", function () {
-
   let menuBody = `
   <div class="mb-3 row">
     <label for="playersNumber" class="col-sm-6 col-form-label" centered>No. of Players:</label>
@@ -76,32 +75,53 @@ function displayModal(title, body, confirm, confirmAction) {
   modal.show();
 
   $("#modalConfirm").on("click", function () {
-
-    modal.hide();
-
     switch (confirmAction) {
       //add the game settings
       case "enterSettings":
+        modal.hide();
 
-        $("#modalBody").find('input,select').each(function(i, obj) {
-          gameSettings[$(obj).attr("id")] = $(obj).val();
-        });
+        $("#modalBody")
+          .find("input,select")
+          .each(function (i, obj) {
+            gameSettings[$(obj).attr("id")] = $(obj).val();
+          });
 
         enterPlayers();
         break;
 
       //add the players
       case "enterPlayers":
-
-        $("#modalBody").find('.playerValues').each(function(i, obj) {
-
-          userName =  $(obj).find('input[type=text]').val();
-          userMoney = $(obj).find('input[type=number]').val();
-          userAvatar = $("#avatarCarousel"+ i).find(".active").find("img").attr("name");
-          players.push({ name: userName, money: userMoney, avatar:  userAvatar});
+        //validate player names first
+        let allValid = true;
+        let inputs = document.querySelectorAll("form");
+        inputs.forEach(function (form) {
+          if (!form.reportValidity()) {
+            allValid = false;
+          }
         });
-        
-        startGame();
+
+        if (allValid) {
+          modal.hide();
+
+          $("#modalBody")
+            .find(".playerValues")
+            .each(function (i, obj) {
+              userName = $(obj).find("input[type=text]").val();
+              userMoney = parseFloat($(obj).find("input[type=number]").val());
+              userAvatar = $("#avatarCarousel" + i)
+                .find(".active")
+                .find("img")
+                .attr("name");
+
+              players.push({
+                name: userName,
+                money: userMoney,
+                avatar: userAvatar,
+              });
+            });
+
+          startGame();
+        }
         break;
 
       default:
@@ -111,24 +131,31 @@ function displayModal(title, body, confirm, confirmAction) {
 }
 
 function enterPlayers() {
-
   // add all avatar images to placeholder
   let avatarImages = ``;
   for (let i = 0; i < numberOfAvatars; i++) {
-    avatarImages += `          
+    avatarImages +=
+      `          
     <div class="carousel-item">
-      <img src="images/avatars/avatar`+i+`.png" name="avatar`+i+`" alt="avatarImage">
+      <img src="images/avatars/avatar` +
+      i +
+      `.png" name="avatar` +
+      i +
+      `" alt="avatarImage">
     </div>
     `;
   }
 
-  let avatarHolder = `
+  let avatarHolder =
+    `
   <div class="d-flex mb-3">
 
     <div class="p-2">
       <div id="avatarCarousel" class="carousel slide carouselMaster" data-bs-ride="carousel" data-bs-interval="false">
         <div class="carousel-inner">
-        `+ avatarImages +`
+        ` +
+    avatarImages +
+    `
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#avatarCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -141,15 +168,17 @@ function enterPlayers() {
       </div>
     </div>
 
-    <div class="flex-grow-1 p-2 align-items-center playerValues">
+    <form class="flex-grow-1 p-2 align-items-center playerValues">
         <div class="mb-3 row">
-          <input type="text" class="form-control" placeholder="Player" >
+          <input type="text" class="form-control" placeholder="Player" minlength="2" maxlength="15" required>
         </div>
 
         <div class="mb-3 row">
-          <input type="number" class="form-control" value="`+gameSettings.betSize+`" >
+          <input type="number" class="form-control" value="` +
+    gameSettings.betSize +
+    `" >
         </div>
-    </div>
+    </form>
 
   </div>
   `;
@@ -158,12 +187,17 @@ function enterPlayers() {
 
   //add an avatar placeholder for each placer
   for (let i = 0; i < parseInt(gameSettings.playersNumber); i++) {
-
     //hold avatarHolder and set an active image for each player
-    let tempHolder = replaceOccurrence(avatarHolder, /carousel-item/g, i + 1, 'carousel-item active')
+    let tempHolder = replaceOccurrence(
+      avatarHolder,
+      /carousel-item/g,
+      i + 1,
+      "carousel-item active"
+    );
 
     if (i % 2 == 0) {
-      bodyHolder += '<div class="d-flex flex-wrap justify-content-center mb-3">';
+      bodyHolder +=
+        '<div class="d-flex flex-wrap justify-content-center mb-3">';
       bodyHolder +=
         '<div class="p-2">' +
         tempHolder.replaceAll("avatarCarousel", "avatarCarousel" + i) +
@@ -175,7 +209,6 @@ function enterPlayers() {
         "</div>";
       bodyHolder += "</div>";
     }
-
   }
 
   displayModal("Players", bodyHolder, "Start", "enterPlayers");
