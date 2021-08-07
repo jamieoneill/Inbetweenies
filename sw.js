@@ -11,6 +11,7 @@ const staticAssets = [
   "js/home.js",
   "js/game.js",
   "js/scoreboard.js",
+  "js/deck.js",
   "images/avatars/avatar0.png",
   "images/avatars/avatar1.png",
   "images/avatars/avatar2.png",
@@ -27,6 +28,10 @@ const staticAssets = [
   "images/avatars/avatar13.png",
   "images/avatars/avatar14.png",
   "images/avatars/avatar15.png",
+  "images/cards/cardback.gif",
+  "images/cards/K.gif",
+  "images/cards/Q.gif",
+  "images/cards/J.gif",
 ];
 
 self.addEventListener('install', event => {
