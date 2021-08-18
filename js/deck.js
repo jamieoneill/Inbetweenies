@@ -28,21 +28,20 @@ function renderCard(card) {
   }
 
   //is a face card, add image
-  if (isNaN(card.value)) {
-
-    if(card.value == "A"){
-        cardImage = '<div class="ace">&'+card.suit +';</div>'
-    }else{
-        cardImage = '<img class="face" src="images/cards/'+card.value+'.gif" alt="" width="80" height="130" />';
+  if (isNaN(card.face)) {
+    if(card.face == "A"){
+        cardImage = '<div class="ace">&'+ card.suit +';</div>'
+    } else{
+        cardImage = '<img class="face" src="images/cards/'+ card.face +'.gif" alt="" width="80" height="130" />';
     }
   }
 
   cardUI = $(
     `<div class="playingCard">
         <div class="front ` + cardColor + `">
-        <div class="cardIndex cardIndexT">` +card.value +`<br>&` +card.suit +`;</div>
-        `+ cardImage + mapCardSpots(card.value,card.suit) +`
-        <div class="cardIndex cardIndexB">` +card.value +`<br>&` +card.suit +`;</div>
+        <div class="cardIndex cardIndexT">` +card.face +`<br>&` +card.suit +`;</div>
+        `+ cardImage + mapCardSpots(card.face,card.suit) +`
+        <div class="cardIndex cardIndexB">` +card.face +`<br>&` +card.suit +`;</div>
         </div>
     </div>`
   );
@@ -50,11 +49,33 @@ function renderCard(card) {
   $("#cardHolder").append(cardUI);
 }
 
-function mapCardSpots(value, suit){
+function setCardFaces(){
+  deck.forEach((card) => {
+    switch (card.value) {
+      case 1:
+        card.face = "A";
+        break;
+      case 11:
+        card.face = "J";
+        break;
+      case 12:
+        card.face = "Q";
+        break;
+      case 13:
+        card.face = "K";
+        break;
+      default:
+        card.face = card.value;
+        break;
+    }
+  });
+}
+
+function mapCardSpots(face, suit){
 
     let spots = "";
 
-    switch (value) {
+    switch (face) {
         case 2:
             spots = `
             <div class="spotB1">&`+suit+`;</div>

@@ -74,11 +74,41 @@
         </div>
       </div>
 
+      <div id="turnDataHolder" class="d-flex flex-row align-self-center">
+        <p>Player: <span id="playerTurnValue"></span></p>
+        <p>Bet: <span id="betValue"></span></p>
+        <p>Pot: <span id="potValue"></span></p>
+      </div>
+
       <div id="cardHolder" class="d-flex flex-row align-self-center">
       </div>
 
-      <div id="playButtonHolder" class="d-flex flex-row align-self-center">
-        <button class="homeButton" id="dealBtn">Deal</button>
+      <div id="gameButtonsHolder" class="d-flex flex-column">
+
+        <div id="betButtonsHolder">
+          <button class="homeButton betBtn" id="smallBetBtn"></button>
+          <button class="homeButton betBtn" id="midBetBtn"></button>
+          <button class="homeButton betBtn" id="maxBetBtn">Pot</button>
+        </div>
+
+        <div id="playButtonsHolder">
+          <button class="homeButton" id="dealBtn">Deal</button>
+          <button class="homeButton" id="playBtn">Play</button>
+          <button class="homeButton" id="foldBtn">Fold</button>
+        </div>
+
+        <div id="aceCheckHolder" class="card text-dark text-center bg-light">
+          <div class="card-body">
+            <h5 class="card-title">Ace is low or high?</h5>
+            <button class="homeButton" id="aceLowBtn" name="low">Low</button>
+            <button class="homeButton" id="aceHighBtn" name="high">High</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="gameHistory">
+        <h3>History</h3>
+        <div id="historyLog" class="d-flex flex-column mb-3"></div>
       </div>
 
     </main>
@@ -90,4 +120,5 @@
   <script src="js/game.js"></script>
   <script src="js/scoreboard.js"></script>
   <script src="js/deck.js"></script>
+  <script src="js/logging.js"></script>
 </html>

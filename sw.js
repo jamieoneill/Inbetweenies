@@ -12,6 +12,7 @@ const staticAssets = [
   "js/game.js",
   "js/scoreboard.js",
   "js/deck.js",
+  "js/logging.js",
   "images/avatars/avatar0.png",
   "images/avatars/avatar1.png",
   "images/avatars/avatar2.png",

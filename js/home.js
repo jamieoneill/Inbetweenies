@@ -18,9 +18,9 @@ $("#newGameBtn").on("click", function () {
     </div>
   </div>
   <div class="mb-3 row">
-    <label for="startingAnte" class="col-sm-6 col-form-label">Starting Ante</label>
+    <label for="currentAnte" class="col-sm-6 col-form-label">Starting Ante</label>
     <div class="col-sm-4">
-      <input type="number" min="0.10" step="0.10" class="form-control" id="startingAnte" value="0.2" >
+      <input type="number" min="0.10" step="0.10" class="form-control" id="currentAnte" value="0.2" >
     </div>
   </div>
   <div class="mb-3 row">
@@ -113,10 +113,11 @@ function displayModal(title, body, confirm, confirmAction) {
                 .find("img")
                 .attr("name");
 
-              players.push({
+                gameData.players.push({
                 name: userName,
                 money: userMoney,
                 avatar: userAvatar,
+                playing: true,
               });
             });
 
