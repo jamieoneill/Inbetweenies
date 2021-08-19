@@ -1,39 +1,38 @@
 // HOME //
 $("#newGameBtn").on("click", function () {
   let menuBody = `
-  <div class="mb-3 row">
-    <label for="playersNumber" class="col-sm-6 col-form-label" centered>No. of Players:</label>
-    <div class="col-sm-4">
-      <select class="form-select" aria-label="No. of Players" id="playersNumber">
-        <option selected value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select>
-    </div>
+  <div class="input-container mt-4">
+    <select class="input form-control" aria-label="No. of Players" id="playersNumber">
+      <option selected value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <div class="cut cut-long"></div>
+    <label for="playersNumber" class="labelholder">No. of Players</label>
   </div>
-  <div class="mb-3 row">
-    <label for="betSize" class="col-sm-6 col-form-label">Buy in Price:</label>
-    <div class="col-sm-4">
-      <input type="number" min="1" step="0.2" class="form-control" id="betSize" value="5.0" >
-    </div>
+
+  <div class="input-container mt-4">
+    <input type="number" min="1" step="0.2" class="input form-control" id="betSize" value="5.0" >
+    <div class="cut cut-long"></div>
+    <label for="betSize" class="labelholder">Buy in Price</label>
   </div>
-  <div class="mb-3 row">
-    <label for="currentAnte" class="col-sm-6 col-form-label">Starting Ante</label>
-    <div class="col-sm-4">
-      <input type="number" min="0.10" step="0.10" class="form-control" id="currentAnte" value="0.2" >
-    </div>
+
+  <div class="input-container mt-4">
+    <input type="number" min="0.10" step="0.10" class="input form-control" id="currentAnte" value="0.2" >
+    <div class="cut cut-long"></div>
+    <label for="currentAnte" class="labelholder">Starting Ante</label>
   </div>
-  <div class="mb-3 row">
-    <label for="anteIncrement" class="col-sm-6 col-form-label">Ante Increment:</label>
-    <div class="col-sm-4">
-      <input type="number" min="0.10" step="0.10" class="form-control" id="anteIncrement" value="0.2" >
-    </div>
+
+  <div class="input-container mt-4">
+    <input type="number" min="0.10" step="0.10" class="input form-control" id="anteIncrement" value="0.2" >
+    <div class="cut cut-long"></div>
+    <label for="anteIncrement" class="labelholder">Ante Increment</label>
   </div>
-  <div class="mb-3 row">
-    <label for="incrementRound" class="col-sm-6 col-form-label">Increase Ante After Round:</label>
-    <div class="col-sm-4">
-      <input type="number" min="1" step="1" class="form-control" id="incrementRound" value="1" >
-    </div>
+
+  <div class="input-container mt-4">
+    <input type="number" min="1" step="1" class="input form-control" id="incrementRound" value="1" >
+    <div class="cut cut-xl"></div>
+    <label for="incrementRound" class="labelholder">Increase Ante After Round</label>
   </div>
   `;
 
@@ -113,7 +112,7 @@ function displayModal(title, body, confirm, confirmAction) {
                 .find("img")
                 .attr("name");
 
-                gameData.players.push({
+              gameData.players.push({
                 name: userName,
                 money: userMoney,
                 avatar: userAvatar,
@@ -169,19 +168,22 @@ function enterPlayers() {
       </div>
     </div>
 
-    <form class="flex-grow-1 p-2 align-items-center playerValues">
-        <div class="mb-3 row">
-          <input type="text" class="form-control" placeholder="Player" minlength="2" maxlength="15" required>
-        </div>
+  <form class="p-2 playerValues">
+      <div class="input-container">
+        <input type="text" class="input form-control" minlength="2" maxlength="15" placeholder=" " required>
+        <div class="cut"></div>
+        <label class="labelholder">Player</label>
+      </div>
 
-        <div class="mb-3 row">
-          <input type="number" class="form-control" value="` +
+      <div class="input-container mt-4">
+        <input type="number" class="input form-control" placeholder=" " value="` +
     gameSettings.betSize +
     `" >
-        </div>
-    </form>
-
-  </div>
+        <div class="cut"></div>
+        <label class="labelholder">Money</label>
+      </div>
+    </div>
+  </form>
   `;
 
   let bodyHolder = "";
