@@ -67,9 +67,8 @@ $("#playBtn").on("click", function () {
 
 //fold the hand
 $("#foldBtn").on("click", function () {
-  let currentPlayer = getCurrentPlayer();
   //log and update scoreboard
-  logToHistory(currentPlayer.name + " folded");
+  logToHistory(getCurrentPlayer().name + " folded");
   updateBoard(true, true);
 
   resetPlayButtons();
@@ -177,7 +176,7 @@ function setWinOrLose(winner) {
   updateBoard(true, true);
 
   //new antes for empty pot
-  if(parseFloat(gameData.pot).toFixed(2) == 0.00){
+  if (parseFloat(gameData.pot).toFixed(2) == 0.0) {
     logToHistory("Pot emptied - All players add their ante");
     addAllAntes();
     updateBoard(false, false);
@@ -209,6 +208,13 @@ function getCurrentPlayer() {
   });
 }
 
+function getPlayersInGame() {
+  //get the current player
+  return gameData.players.filter((player) => {
+    return player.playing === true;
+  });
+}
+
 function resetPlayButtons() {
   $("#dealBtn").show();
   $("#playBtn").hide();
@@ -226,10 +232,21 @@ function startNewRound() {
   updateBoard(false, true);
 }
 
-function addAllAntes(){
-  gameData.players.forEach((player) => {
+function addAllAntes() {
+  getPlayersInGame().forEach((player) => {
     player.money = player.money - gameSettings.currentAnte;
     gameData.pot =
       parseFloat(gameData.pot) + parseFloat(gameSettings.currentAnte);
   });
+}
+
+function endGame(winner) {
+  logToHistory("Game Over");
+  logToHistory("Winner: " + winner.name);
+
+  $(".name[value='" + winner.name + "']")
+  .parent()
+  .addClass("winner");
+
+  $("#playButtonsHolder").hide();
 }

@@ -84,13 +84,17 @@ body {
   line-height: 12px;
 }
 #leaderboard #players li {
-  display:block;
-  clear: both;
+  display: flex;
+  /* clear: both; */
   position: absolute;
   width: 35vw;
+  height: 6vh;
   -moz-transition-duration: 1s;
   -webkit-transition-duration: 1s;
   -ms-transition-duration: 1s;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #000;
 }
 #leaderboard #players li.header {
   font-weight: bold;
@@ -102,12 +106,6 @@ body {
   width: 35vw;
   position: relative;
 }
-#leaderboard #players div {
-  display: block;
-  float: left;
-  overflow: hidden;
-  padding: 5px;
-}
 #leaderboard .image {
 }
 #leaderboard .name {
@@ -116,12 +114,21 @@ body {
 #leaderboard .money {
   width: 5vw;
 }
+#leaderboard .money:before {
+  content: "€";
+}
 .playerIcon {
   height: 6vh;
-  border: 1px solid #000;
+  /*border: 1px solid #000;*/
 }
 #leaderboard #players .active {
   background-color: palegoldenrod;
+}
+#leaderboard #players .out {
+  background-color: indianred;
+}
+#leaderboard #players .winner {
+  background-color: limegreen;
 }
 
 /* DECK */
@@ -222,6 +229,12 @@ body {
 #betButtonsHolder{
   display: flex;
   flex-direction: row;
+}
+#potValue:before {
+  content: "€";
+}
+#betValue:before {
+  content: "€";
 }
 
 /* HISTORY */

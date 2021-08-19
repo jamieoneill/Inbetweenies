@@ -13,11 +13,16 @@ function reposition() {
 
 function updateBoard(moveToNextPlayer, resetBoard) {
   //update money on values on board
-  gameData.players.forEach((player) => {
+  getPlayersInGame().forEach((player) => {
     $(".name[value='" + player.name + "']")
       .parent()
       .find(".money")
       .text(parseFloat(player.money).toFixed(2));
+
+    //if player has no money they are out
+    if (parseFloat(player.money).toFixed(2) == 0.0) {
+      removePlayerFromGame(player);
+    }
   });
 
   sortBoard();
@@ -31,22 +36,44 @@ function updateBoard(moveToNextPlayer, resetBoard) {
   }
 }
 
+function removePlayerFromGame(player) {
+  logToHistory(player.name + " is out of the game");
+
+  $(".name[value='" + player.name + "']")
+    .parent()
+    .addClass("out");
+
+  //remove player from player order
+  player.playing = false;
+  gameData.playerOrder.splice(gameData.playerTurn, 1);
+
+  if (gameData.playerTurn != 0) {
+    gameData.playerTurn--;
+  }
+}
+
 function setNextPlayer() {
-  $(".name[value='" + gameData.playerOrder[gameData.playerTurn] + "']")
+  $(".name[value='" + getCurrentPlayer().name + "']")
     .parent()
     .removeClass("active");
 
+  //get players still in game
+  let playersInGame = getPlayersInGame();
+
   //set next active player
-  if (gameData.playerTurn + 1 < gameData.players.length) {
+  if (gameData.playerTurn + 1 < playersInGame.length) {
     gameData.playerTurn++;
+  } else if (playersInGame.length == 1) {
+    endGame(playersInGame[0]);
+    return;
   } else {
     //end of round
     gameData.playerTurn = 0;
     startNewRound();
   }
 
-  $("#playerTurnValue").text(gameData.playerOrder[gameData.playerTurn]);
-  $(".name[value='" + gameData.playerOrder[gameData.playerTurn] + "']")
+  $("#playerTurnValue").text(getCurrentPlayer().name);
+  $(".name[value='" + getCurrentPlayer().name + "']")
     .parent()
     .addClass("active");
 }
@@ -93,7 +120,7 @@ function loadScoreboard() {
   });
 
   sortBoard();
-  $(".name[value='" + gameData.playerOrder[gameData.playerTurn] + "']")
+  $(".name[value='" + getCurrentPlayer().name + "']")
     .parent()
     .addClass("active");
 }
