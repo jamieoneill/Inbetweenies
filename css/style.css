@@ -264,7 +264,7 @@ body {
 
 
 /* TURN DATA */
-#turnDataHolder{
+#turnDataHolder, #roundDataHolder{
   justify-content: space-evenly;
   width: 50vw;
 }

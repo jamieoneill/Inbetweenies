@@ -16,6 +16,8 @@ function initGame() {
   loadScoreboard();
   setBetValues();
 
+  $("#roundValue").text(1);
+  $("#anteValue").text(gameSettings.currentAnte);
   $("#potValue").text(gameData.pot);
   $("#playerTurnValue").text(gameData.playerOrder[gameData.playerTurn]);
   $("#betValue").text(0);
@@ -241,6 +243,9 @@ function startNewRound() {
     gameSettings.currentAnte = parseFloat(gameSettings.currentAnte).toFixed(2);
 
     logToHistory("Increasing Ante:  New Ante - " + gameSettings.currentAnte);
+
+    $("#roundValue").text(gameData.round);
+    $("#anteValue").text(gameSettings.currentAnte);
   }
 
   //all players pay in on new round
