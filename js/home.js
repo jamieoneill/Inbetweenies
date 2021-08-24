@@ -170,7 +170,7 @@ function enterPlayers() {
 
   <form class="p-2 playerValues">
       <div class="input-container">
-        <input type="text" class="input form-control" minlength="2" maxlength="15" placeholder=" " required>
+        <input type="text" class="input form-control player-names" minlength="2" maxlength="15" placeholder=" " required>
         <div class="cut"></div>
         <label class="labelholder">Player</label>
       </div>
@@ -215,4 +215,16 @@ function enterPlayers() {
   }
 
   displayModal("Players", bodyHolder, "Start", "enterPlayers");
+
+  //ensure unique player names
+  $(".player-names").keyup(function () {
+    let names = $(".player-names");
+    let uniques = new Set(names.map((i, el) => el.value).get());
+
+    if (uniques.size < names.length) {
+      $(this)[0].setCustomValidity("All names must be unique");
+    }else{
+      $(this)[0].setCustomValidity("");
+    }
+  });
 }
