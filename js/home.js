@@ -82,7 +82,7 @@ function displayModal(title, body, confirm, confirmAction) {
         $("#modalBody")
           .find("input,select")
           .each(function (i, obj) {
-            gameSettings[$(obj).attr("id")] = $(obj).val();
+            gameSettings[$(obj).attr("id")] = parseFloat($(obj).val());
           });
 
         enterPlayers();

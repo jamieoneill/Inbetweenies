@@ -228,6 +228,22 @@ function startNewRound() {
     "Starting round: " + gameData.round + " - All players add their ante"
   );
 
+  //up the anteIncrement on incrementRound round
+  if (
+    gameData.round != 1 &&
+    gameData.round % gameSettings.incrementRound === 0
+  ) {
+
+    gameSettings.currentAnte =
+      parseFloat(gameSettings.currentAnte) +
+      parseFloat(gameSettings.anteIncrement);
+
+    gameSettings.currentAnte = parseFloat(gameSettings.currentAnte).toFixed(2);
+
+    logToHistory("Increasing Ante:  New Ante - " + gameSettings.currentAnte);
+  }
+
+  //all players pay in on new round
   addAllAntes();
   updateBoard(false, true);
 }
@@ -245,8 +261,8 @@ function endGame(winner) {
   logToHistory("Winner: " + winner.name);
 
   $(".name[value='" + winner.name + "']")
-  .parent()
-  .addClass("winner");
+    .parent()
+    .addClass("winner");
 
   $("#playButtonsHolder").hide();
 }
