@@ -2,7 +2,7 @@
 var gameSettings = {};
 var numberOfAvatars = 16;
 var gameData = { pot: 0.00, round: 0, players: [], playerOrder: [], playerTurn: 0, betAmount: 0.00}
-const suits = ["spades", "diams", "clubs", "hearts"];
+const suits = ["♠", "♦", "♣", "♥"];
 const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 const deck = suits.map((suit) => values.map((value) => ({ value, suit }))).flat(1);
 

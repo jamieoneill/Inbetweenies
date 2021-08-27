@@ -14,35 +14,29 @@ function shuffleDeck() {
 function renderCard(card) {
   var cardUI = "";
   var cardColor = "";
-  var cardImage = "";
 
   switch (card.suit) {
-    case "hearts":
-      cardColor = "red";
+    case "♥":
+      cardColor = "playingCard--red";
       break;
-    case "diams":
-      cardColor = "red";
+    case "♦":
+      cardColor = "playingCard--red";
       break;
     default:
       break;
   }
 
-  //is a face card, add image
-  if (isNaN(card.face)) {
-    if(card.face == "A"){
-        cardImage = '<div class="ace">&'+ card.suit +';</div>'
-    } else{
-        cardImage = '<img class="face" src="images/cards/'+ card.face +'.gif" alt="" width="80" height="130" />';
-    }
-  }
-
-  cardUI = $(
-    `<div class="playingCard">
-        <div class="front ` + cardColor + `">
-        <div class="cardIndex cardIndexT">` +card.face +`<br>&` +card.suit +`;</div>
-        `+ cardImage + mapCardSpots(card.face,card.suit) +`
-        <div class="cardIndex cardIndexB">` +card.face +`<br>&` +card.suit +`;</div>
-        </div>
+  cardUI = $( 
+    `<div class="playingCard playingCard--margin playingCard--small ` + cardColor + `">
+      <div class="playingCard__tab">
+      ` +card.face + ` <span class="playingCard__tab__symbol">` + card.suit +`</span>
+      </div>
+      <div class="playingCard__tab playingCard__tab--bottom">
+      ` +card.face+ ` <span class="playingCard__tab__symbol">` + card.suit +`</span>
+      </div>
+      <div class="playingCard__graphic">
+      `+ mapCardGraphic(card.face, card.suit) +`
+      </div>
     </div>`
   );
 
@@ -71,110 +65,22 @@ function setCardFaces(){
   });
 }
 
-function mapCardSpots(face, suit){
+function mapCardGraphic(face, suit){
+  let graphics = "";
 
-    let spots = "";
+  if (isNaN(face)) {
 
-    switch (face) {
-        case 2:
-            spots = `
-            <div class="spotB1">&`+suit+`;</div>
-            <div class="spotB5">&`+suit+`;</div>
-            `
-            break;
-        case 3:
-            spots = `
-            <div class="spotB1">&`+suit+`;</div>
-            <div class="spotB3">&`+suit+`;</div>
-            <div class="spotB5">&`+suit+`;</div>
-            `
-            break;
-        case 4:
-            spots = `
-            <div class="spotA1">&`+suit+`;</div>
-            <div class="spotA5">&`+suit+`;</div>
-            <div class="spotC1">&`+suit+`;</div>
-            <div class="spotC5">&`+suit+`;</div>
-            `
-            break;
-        case 5:
-            spots = `
-            <div class="spotA1">&`+suit+`;</div>
-            <div class="spotA5">&`+suit+`;</div>
-            <div class="spotB3">&`+suit+`;</div>
-            <div class="spotC1">&`+suit+`;</div>
-            <div class="spotC5">&`+suit+`;</div>
-            `
-            break;
-        case 6:
-            spots = `
-            <div class="spotA1">&`+suit+`;</div>
-            <div class="spotA3">&`+suit+`;</div>
-            <div class="spotA5">&`+suit+`;</div>
-            <div class="spotC1">&`+suit+`;</div>
-            <div class="spotC3">&`+suit+`;</div>
-            <div class="spotC5">&`+suit+`;</div>
-            `
-            break;
-        case 7:
-            spots = `
-            <div class="spotA1">&`+suit+`;</div>
-            <div class="spotA3">&`+suit+`;</div>
-            <div class="spotA5">&`+suit+`;</div>
-            <div class="spotB2">&`+suit+`;</div>
-            <div class="spotC1">&`+suit+`;</div>
-            <div class="spotC3">&`+suit+`;</div>
-            <div class="spotC5">&`+suit+`;</div>
-            `
-            break;
-        case 8:
-            spots = `
-            <div class="spotA1">&`+suit+`;</div>
-            <div class="spotA3">&`+suit+`;</div>
-            <div class="spotA5">&`+suit+`;</div>
-            <div class="spotB2">&`+suit+`;</div>
-            <div class="spotB4">&`+suit+`;</div>
-            <div class="spotC1">&`+suit+`;</div>
-            <div class="spotC3">&`+suit+`;</div>
-            <div class="spotC5">&`+suit+`;</div>
-            `
-            break;
-        case 9:
-            spots = `
-            <div class="spotA1">&`+suit+`;</div>
-            <div class="spotA2">&`+suit+`;</div>
-            <div class="spotA4">&`+suit+`;</div>
-            <div class="spotA5">&`+suit+`;</div>
-            <div class="spotB3">&`+suit+`;</div>
-            <div class="spotC1">&`+suit+`;</div>
-            <div class="spotC2">&`+suit+`;</div>
-            <div class="spotC4">&`+suit+`;</div>
-            <div class="spotC5">&`+suit+`;</div>
-            `
-            break;
-        case 10:
-            spots = `
-            <div class="spotA1">&`+suit+`;</div>
-            <div class="spotA2">&`+suit+`;</div>
-            <div class="spotA4">&`+suit+`;</div>
-            <div class="spotA5">&`+suit+`;</div>
-            <div class="spotB2">&`+suit+`;</div>
-            <div class="spotB4">&`+suit+`;</div>
-            <div class="spotC1">&`+suit+`;</div>
-            <div class="spotC2">&`+suit+`;</div>
-            <div class="spotC4">&`+suit+`;</div>
-            <div class="spotC5">&`+suit+`;</div>
-            `
-            break;
-        case "A":
-            break;
-        default:
-            spots = `
-            <div class="spotA1">&`+suit+`;</div>
-            <div class="spotC5">&`+suit+`;</div>
-            `
-            break;
+    if(face == "A"){
+      graphics = '<span class="element">' + face +'</span>';
+    } else{
+      graphics = '<img class="element" src="images/cards/'+ face +'.gif" alt=""/>';
     }
 
-    return spots;
+  }else{
+    for (let i = 0; i < face; i++) {
+      graphics += '<span class="element">' + suit +'</span>';
+    }
+  }
+
+  return graphics;
 }

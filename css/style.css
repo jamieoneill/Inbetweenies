@@ -192,77 +192,6 @@ body {
   background-color: limegreen;
 }
 
-/* DECK */
-.playingCard {
-  background-image: url("../images/cards/cardback.gif");
-  border-color: #808080 #000000 #000000 #808080;
-  border-width: 1px;
-  border-style: solid;
-  font-size: 1.5em;
-  position: relative;
-  width:  3.75em;
-  height: 5.00em;
-  margin-left: 1rem;
-  line-height: 1;
-}
-.front {
-  background-color: #ffffff;
-  color: #000000;
-  position: initial;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.red { 
-  color: #ff0000; 
-}
-.cardIndex {
-  font-size: 50%;
-  font-weight: bold;
-  text-align: center;
-  position: absolute;
-}
-.cardIndexT {
-  left: 0.15em;
-  top:  0.25em;
-}
-.cardIndexB {
-  right: 0.15em;
-  bottom:  0.25em;
-  transform: rotate(180deg);
-}
-.ace {
-  font-size: 3em;
-}
-.face {
-  border: 1px solid #000000;
-  position: absolute;
-  left: 0.50em;
-  top:  0.45em;
-  width:  2.6em;
-  height: 4.0em;
-}
-.spotA1 { position: absolute; left: 0.60em; top: 0.5em; }
-.spotA2 { position: absolute; left: 0.60em; top: 1.5em; }
-.spotA3 { position: absolute; left: 0.60em; top: 2.0em; }
-.spotA4 { position: absolute; left: 0.60em; top: 2.5em; }
-.spotA5 { position: absolute; left: 0.60em; top: 3.5em; }
-
-.spotB1 { position: absolute; left: 1.55em; top: 0.5em; }
-.spotB2 { position: absolute; left: 1.55em; top: 1.0em; }
-.spotB3 { position: absolute; left: 1.55em; top: 2.0em; }
-.spotB4 { position: absolute; left: 1.55em; top: 3.0em; }
-.spotB5 { position: absolute; left: 1.55em; top: 3.5em; }
-
-.spotC1 { position: absolute; left: 2.50em; top: 0.5em; }
-.spotC2 { position: absolute; left: 2.50em; top: 1.5em; }
-.spotC3 { position: absolute; left: 2.50em; top: 2.0em; }
-.spotC4 { position: absolute; left: 2.50em; top: 2.5em; }
-.spotC5 { position: absolute; left: 2.50em; top: 3.5em; }
-
-
 /* TURN DATA */
 #turnDataHolder, #roundDataHolder{
   justify-content: space-evenly;
@@ -310,4 +239,299 @@ body {
   border-radius: 5px;
   padding: 5px;
   margin: 5px 0;
+}
+
+/* DECK */
+.playingCard,
+.playingCard .playingCard__backface {
+	display: block;
+	float: left;
+	backface-visibility: hidden;
+	font-family: 'Roboto', sans-serif;
+	position: relative;
+	width: 278px;
+	height: 400px;
+	color: #111;
+	border-radius: 10px;
+	border: 1px solid #f7f7f7;
+	background: linear-gradient(135deg, #fff, #fafafa);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	
+	transition: transform 0.3s ease-in-out,
+		transform-origin 0.4s ease-in-out,
+		margin 0.6s ease-in-out,
+		margin-top 0.1s ease-out;
+
+	transform-origin: 40% 50%;
+	perspective-origin: 50px 10px 50px;
+	perspective: 500px;
+}
+
+.playingCard img {
+	max-width: 1.3em;
+  	border: 1px solid #000000;
+}
+
+.playingCard .playingCard__backface {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	transform: rotate3d(0, 1, 0, 180deg);
+	height: 100%;
+	width: 100%;
+
+	background: url(images/playingCard-back.jpg) 45% 63%;
+	background-size: 111%;
+}
+
+.playingCard.playingCard--margin {
+	margin: 7px;
+}
+
+.playingCard.playingCard--compacted {
+	margin-left: -250px;
+}
+
+/*
+.playingCard.playingCard--compacted:hover ~ .playingCard.playingCard--compacted {
+	transform-origin: bottom center;
+	transition: transform 0.2s linear;
+	transform: rotateZ(15deg) translateX(120px);
+}
+*/
+
+.playingCard.playingCard--hidden {
+	transform-origin: 50% 50%;
+	transform: rotate3d(0, 1, 0, 180deg);
+}
+
+.playingCard--hidden .playingCard__backface {
+	transform-origin: 50% 50%;
+	transform: rotate3d(0, 1, 0, 0deg);
+}
+
+.playingCard.playingCard--red {
+	color: #C00;
+}
+
+/*
+.playingCard:hover {
+	transform-origin: 100%;
+	transform: translateY(-20px) rotateZ(-1deg);
+}
+*/
+
+.playingCard.playingCard--selected {
+	margin-top: -90px;
+}
+
+.playingCard__tab {
+	position: absolute;
+	top: 3%;
+	left: 3%;
+	font-size: 0.952em;
+	text-align: center;
+	width: 9%;
+}
+
+.playingCard__tab .playingCard__tab__symbol {
+	font-size: 0.76em;
+}
+
+.playingCard__tab.playingCard__tab--bottom {
+	top: auto;
+	left: auto;
+	right: 3%;
+	bottom: 3%;
+	transform: rotate(180deg);
+}
+
+.playingCard__graphic {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1;
+	justify-content: space-around;
+	text-align: center;
+	padding: 5% 6%;
+	height: 100%;
+	box-sizing: border-box;
+	align-items: center;
+}
+
+.playingCard__graphic .element {
+	font-size: 2.1em;
+	display: block;
+	width: 50%;
+}
+
+/* Large icon/font for ace & face playingCards */
+.playingCard__graphic .element:first-child:nth-last-child(1) {
+	font-size: 5em;
+}
+
+/* playingCards with 1 - 3 symbols are stacked vertically */
+.playingCard__graphic .element:first-child:nth-last-child(1),
+.playingCard__graphic .element:first-child:nth-last-child(2),
+.playingCard__graphic .element:first-child:nth-last-child(3),
+.playingCard__graphic .element:first-child:nth-last-child(1) ~ .element,
+.playingCard__graphic .element:first-child:nth-last-child(2) ~ .element,
+.playingCard__graphic .element:first-child:nth-last-child(3) ~ .element {
+	width: 100%;
+}
+
+/* Offset centered elements
+ *
+ * Targets the last few items of playingCards with uneven numbers of symbols.
+ * For an explaination of how thesee selectors work, go here:
+ * 
+ *   http://stackoverflow.com/a/12198561
+ */
+.playingCard__graphic .element:first-child:nth-last-child(5) ~ .element:nth-child(5),
+.playingCard__graphic .element:first-child:nth-last-child(7) ~ .element:nth-child(7),
+.playingCard__graphic .element:first-child:nth-last-child(8) ~ .element:nth-child(7),
+.playingCard__graphic .element:first-child:nth-last-child(8) ~ .element:nth-child(8),
+.playingCard__graphic .element:first-child:nth-last-child(9) ~ .element:nth-child(9),
+.playingCard__graphic .element:first-child:nth-last-child(10) ~ .element:nth-child(9),
+.playingCard__graphic .element:first-child:nth-last-child(10) ~ .element:nth-child(10),
+.playingCard__graphic .element:first-child:nth-last-child(11) ~ .element:nth-child(9),
+.playingCard__graphic .element:first-child:nth-last-child(11) ~ .element:nth-child(10),
+.playingCard__graphic .element:first-child:nth-last-child(11) ~ .element:nth-child(11),
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(9),
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(10),
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(11),
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(12),
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(13) {
+	position: absolute;
+	top: 31%;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: block;
+	margin: auto;
+	height: 1.4em;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(5) ~ .element:nth-child(5) {
+	top: 0;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(8) ~ .element:nth-child(8) {
+	top: 0;
+	bottom: 31%;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(9) ~ .element:nth-child(9) {
+	top: 0;
+	margin: auto;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(10) ~ .element:nth-child(9),
+.playingCard__graphic .element:first-child:nth-last-child(11) ~ .element:nth-child(9),
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(9) {
+	top: 45%;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(10) ~ .element:nth-child(10),
+.playingCard__graphic .element:first-child:nth-last-child(11) ~ .element:nth-child(10),
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(10) {
+	top: 0;
+	bottom: 45%;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(11) ~ .element:nth-child(11),
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(11) {
+	top: 0;
+	bottom: 0;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(12),
+.playingCard__graphic .element:first-child:nth-last-child(12) ~ .element {
+	width: 25%;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(12),
+.playingCard__graphic .element:first-child:nth-last-child(12) ~ .element:nth-child(3n+1) {
+	margin-left: 11%;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(12) ~ .element:nth-child(3n) {
+	margin-right: 11%;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(12) {
+	top: 80%;
+}
+
+.playingCard__graphic .element:first-child:nth-last-child(13) ~ .element:nth-child(13) {
+	bottom: 80%;
+	top: 0;
+}
+
+
+/* Small playingCards */
+.playingCard.playingCard--small,
+.playingCard.playingCard--small .playingCard__backface {
+	width: 139px;
+	height: 200px;
+	font-size: 12px;
+}
+
+.playingCard.playingCard--small .playingCard__tab {
+	width: 12%;
+	font-size: 1.7em;
+}
+
+.playingCard.playingCard--small.playingCard.playingCard--compacted {
+	margin-left: -120px;
+	left: 60px;
+}
+
+/*
+.playingCard.playingCard--small.playingCard--compacted:hover ~ .playingCard.playingCard--small.playingCard--compacted {
+	transition: transform 0.1s linear;
+	transform: rotateZ(12deg) translateX(70px);
+}
+
+.playingCard.playingCard--small.playingCard--compacted:hover + .playingCard.playingCard--small.playingCard--compacted {
+	transition: transform 0.1s linear;
+	transform: rotateZ(10deg) translateX(69px);
+}
+*/
+
+.hand {
+	padding: 15px;
+	box-sizing: border-box;
+	background: #F4F4F4;
+	border-top: 1px solid #F1F1F1;
+}
+
+.hand--table {
+	background: #C6D5B7;
+	border-bottom: 1px solid #B2B2B2;
+}
+
+.hand--table .playingCard {
+	transform: none !important;
+	cursor: default;
+}
+s
+.hand__title {
+	display: block;
+	font-size: 12px;
+	margin: 0 0 1em;
+	font-size: 14px;
+}
+
+.hand__playingCards {
+	display: flex;
+	align-items: center;
+	flex-flow: row;
+}
+
+.hand__playingCards .playingCard {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	float: none;
 }
