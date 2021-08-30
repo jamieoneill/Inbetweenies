@@ -115,9 +115,12 @@ function loadScoreboard() {
     list.append(playerUI);
   });
 
-  gameData.players.forEach((player) => {
-    gameData.playerOrder.push(player.name);
-  });
+  //set player order if not already set
+  if (gameData.playerOrder.length == 0) {
+    gameData.players.forEach((player) => {
+      gameData.playerOrder.push(player.name);
+    });
+  }
 
   sortBoard();
   $(".name[value='" + getCurrentPlayer().name + "']")

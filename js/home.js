@@ -41,12 +41,18 @@ $("#newGameBtn").on("click", function () {
 
 $("#loadGameBtn").on("click", function () {
   //load game
-  displayModal("Load", "Body...", null);
+  try {
+    loadState();
+    startGame();
+  } catch (error) {
+    alert ("No save data found")
+  }
+
 });
 
 $("#historyBtn").on("click", function () {
   //show history
-  displayModal("History", "Body...", null);
+  displayModal("History", loadHistory(), null);
 });
 
 //show a menu in a modal

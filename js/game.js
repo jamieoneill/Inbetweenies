@@ -12,6 +12,9 @@ function startGame() {
 }
 
 function initGame() {
+  gameSettings.date = new Date().toLocaleString().split(", ")[0];
+  gameSettings.time = new Date().toLocaleString().split(", ")[1];
+
   setCardFaces();
   loadScoreboard();
   setBetValues();
@@ -166,11 +169,13 @@ function setWinOrLose(winner) {
     gameData.pot = parseFloat(gameData.pot) - parseFloat(gameData.betAmount);
     currentPlayer.money =
       parseFloat(currentPlayer.money) + parseFloat(gameData.betAmount);
+    currentPlayer.money = parseFloat(currentPlayer.money).toFixed(2);
   } else {
     winText = "lost";
     gameData.pot = parseFloat(gameData.pot) + parseFloat(gameData.betAmount);
     currentPlayer.money =
       parseFloat(currentPlayer.money) - parseFloat(gameData.betAmount);
+    currentPlayer.money = parseFloat(currentPlayer.money).toFixed(2);
   }
 
   //log and update scoreboard
@@ -194,6 +199,7 @@ function setBetValues() {
 function setAnte() {
   let currentPlayer = getCurrentPlayer();
   currentPlayer.money = currentPlayer.money - gameSettings.currentAnte;
+  currentPlayer.money = parseFloat(currentPlayer.money).toFixed(2);
   gameData.pot =
     parseFloat(gameData.pot) + parseFloat(gameSettings.currentAnte);
   gameData.betAmount = gameSettings.currentAnte;
@@ -225,6 +231,9 @@ function resetPlayButtons() {
 }
 
 function startNewRound() {
+  //save the game before the start of every round
+  saveState();
+
   gameData.round++;
   logToHistory(
     "Starting round: " + gameData.round + " - All players add their ante"
@@ -235,7 +244,6 @@ function startNewRound() {
     gameData.round != 1 &&
     gameData.round % gameSettings.incrementRound === 0
   ) {
-
     gameSettings.currentAnte =
       parseFloat(gameSettings.currentAnte) +
       parseFloat(gameSettings.anteIncrement);
@@ -256,6 +264,7 @@ function startNewRound() {
 function addAllAntes() {
   getPlayersInGame().forEach((player) => {
     player.money = player.money - gameSettings.currentAnte;
+    player.money = parseFloat(player.money).toFixed(2);
     gameData.pot =
       parseFloat(gameData.pot) + parseFloat(gameSettings.currentAnte);
   });
@@ -264,10 +273,14 @@ function addAllAntes() {
 function endGame(winner) {
   logToHistory("Game Over");
   logToHistory("Winner: " + winner.name);
+  gameData.winner = winner.name;
 
   $(".name[value='" + winner.name + "']")
     .parent()
     .addClass("winner");
 
   $("#playButtonsHolder").hide();
+
+  saveFinishedGame();
+  localStorage.removeItem("saveData");
 }
