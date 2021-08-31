@@ -17,10 +17,10 @@ function initGame() {
 
   setCardFaces();
   loadScoreboard();
-  setBetValues();
+  gameData.currentAnte = gameSettings.startingAnte;
 
   $("#roundValue").text(1);
-  $("#anteValue").text(gameSettings.currentAnte);
+  $("#anteValue").text(gameData.currentAnte);
   $("#potValue").text(gameData.pot);
   $("#playerTurnValue").text(gameData.playerOrder[gameData.playerTurn]);
   $("#betValue").text(0);
@@ -29,6 +29,7 @@ function initGame() {
 
 //deal cards
 $("#dealBtn").on("click", function () {
+  setBetValues();
   $("#dealBtn").hide();
   $("#playBtn").show();
   $("#foldBtn").show();
@@ -191,18 +192,27 @@ function setWinOrLose(winner) {
   }
 }
 
-function setBetValues() {
-  $("#smallBetBtn").text(gameSettings.currentAnte);
-  $("#midBetBtn").text(gameSettings.currentAnte * 2);
+function setBetValues() {  
+  $("#smallBetBtn").text(gameSettings.anteIncrement);
+  $("#midBetBtn").text(getCurrentPlayer().money / 2);
 }
 
 function setAnte() {
   let currentPlayer = getCurrentPlayer();
-  currentPlayer.money = currentPlayer.money - gameSettings.currentAnte;
+
+  if(currentPlayer.money < gameData.currentAnte){
+    logToHistory(currentPlayer.name + ": Cannot afford ante. They must play their remaining money");
+    gameData.betAmount = currentPlayer.money;
+    $("#foldBtn").hide();
+  }else{
+  currentPlayer.money = currentPlayer.money - gameData.currentAnte;
   currentPlayer.money = parseFloat(currentPlayer.money).toFixed(2);
   gameData.pot =
-    parseFloat(gameData.pot) + parseFloat(gameSettings.currentAnte);
-  gameData.betAmount = gameSettings.currentAnte;
+    parseFloat(gameData.pot) + parseFloat(gameData.currentAnte);
+  gameData.betAmount = gameData.currentAnte;
+  }
+
+  gameData.betAmount = parseFloat(gameData.betAmount).toFixed(2);
 
   updateBoard(false, false);
   $("#betValue").text(gameData.betAmount);
@@ -244,16 +254,16 @@ function startNewRound() {
     gameData.round != 1 &&
     gameData.round % gameSettings.incrementRound === 0
   ) {
-    gameSettings.currentAnte =
-      parseFloat(gameSettings.currentAnte) +
+    gameData.currentAnte =
+      parseFloat(gameData.currentAnte) +
       parseFloat(gameSettings.anteIncrement);
 
-    gameSettings.currentAnte = parseFloat(gameSettings.currentAnte).toFixed(2);
+    gameData.currentAnte = parseFloat(gameData.currentAnte).toFixed(2);
 
-    logToHistory("Increasing Ante:  New Ante - " + gameSettings.currentAnte);
+    logToHistory("Increasing Ante:  New Ante - " + gameData.currentAnte);
 
     $("#roundValue").text(gameData.round);
-    $("#anteValue").text(gameSettings.currentAnte);
+    $("#anteValue").text(gameData.currentAnte);
   }
 
   //all players pay in on new round
@@ -263,10 +273,15 @@ function startNewRound() {
 
 function addAllAntes() {
   getPlayersInGame().forEach((player) => {
-    player.money = player.money - gameSettings.currentAnte;
-    player.money = parseFloat(player.money).toFixed(2);
-    gameData.pot =
-      parseFloat(gameData.pot) + parseFloat(gameSettings.currentAnte);
+
+    if(player.money < gameData.currentAnte){
+      logToHistory(player.name + ": Cannot round afford ante. This will be their last hand if they lose");
+    }else{
+      player.money = player.money - gameData.currentAnte;
+      player.money = parseFloat(player.money).toFixed(2);
+      gameData.pot =
+        parseFloat(gameData.pot) + parseFloat(gameData.currentAnte);
+    }
   });
 }
 

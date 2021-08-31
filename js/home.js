@@ -18,9 +18,9 @@ $("#newGameBtn").on("click", function () {
   </div>
 
   <div class="input-container mt-4">
-    <input type="number" min="0.10" step="0.10" class="input form-control" id="currentAnte" value="0.2" >
+    <input type="number" min="0.10" step="0.10" class="input form-control" id="startingAnte" value="0.2" >
     <div class="cut cut-long"></div>
-    <label for="currentAnte" class="labelholder">Starting Ante</label>
+    <label for="startingAnte" class="labelholder">Starting Ante</label>
   </div>
 
   <div class="input-container mt-4">
