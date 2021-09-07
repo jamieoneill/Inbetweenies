@@ -29,7 +29,6 @@ function initGame() {
 
 //deal cards
 $("#dealBtn").on("click", function () {
-  setBetValues();
   $("#dealBtn").hide();
   $("#playBtn").show();
   $("#foldBtn").show();
@@ -115,7 +114,7 @@ $("#aceLowBtn, #aceHighBtn").on("click", function () {
   $("#aceCheckHolder").hide();
 });
 
-$(".betBtn").on("click", function () {
+$(".betChip").on("click", function () {
   let newbet = $(this).text();
   let currentPlayer = getCurrentPlayer();
 
@@ -190,11 +189,6 @@ function setWinOrLose(winner) {
     updateBoard(false, false);
     $("#potValue").text(parseFloat(gameData.pot).toFixed(2));
   }
-}
-
-function setBetValues() {  
-  $("#smallBetBtn").text(gameSettings.anteIncrement);
-  $("#midBetBtn").text(getCurrentPlayer().money / 2);
 }
 
 function setAnte() {

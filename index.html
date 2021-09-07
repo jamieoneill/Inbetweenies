@@ -64,7 +64,7 @@
     <!-- Home Menu View -->
     <main id="Game" class="gameContainer">
 
-      <div id="scoreBoard" class="d-flex justify-content-end mb-3">
+      <div id="scoreBoard" class="d-flex justify-content-end">
         <div id="leaderboard">
           <ul id="players">
             <li class="header">
@@ -75,14 +75,14 @@
       </div>
 
       <div id="roundDataHolder" class="d-flex flex-row align-self-center">
-        <p>Round: <span id="roundValue"></span></p>
-        <p>Ante: <span id="anteValue"></span></p>
-        <p>Pot: <span id="potValue"></span></p>
+        <p class="p-2 tableTextHolder">Round: <span id="roundValue"></span></p>
+        <p class="p-2 tableTextHolder">Ante: <span id="anteValue"></span></p>
+        <p class="p-2 tableTextHolder">Pot: <span id="potValue"></span></p>
       </div>
 
       <div id="turnDataHolder" class="d-flex flex-row align-self-center">
-        <p>Player: <span id="playerTurnValue"></span></p>
-        <p>Bet: <span id="betValue"></span></p>
+        <p class="p-2 tableTextHolder">Player: <span id="playerTurnValue"></span></p>
+        <p class="p-2 tableTextHolder">Bet: <span id="betValue"></span></p>
       </div>
 
       <div id="cardHolder" class="hand hand__playingCards">
@@ -91,9 +91,12 @@
       <div id="gameButtonsHolder" class="d-flex flex-column">
 
         <div id="betButtonsHolder">
-          <button class="homeButton betBtn" id="smallBetBtn"></button>
-          <button class="homeButton betBtn" id="midBetBtn"></button>
-          <button class="homeButton betBtn" id="maxBetBtn">Pot</button>
+          <div class="betChip chipGreen">0.2</div>
+          <div class="betChip chipRed">0.5</div>
+          <div class="betChip chipBlue">1</div>
+          <div class="betChip chipOrange">2</div>
+          <div class="betChip chipBlack">5</div>
+          <div class="betChip chipSilver">Pot</div>
         </div>
 
         <div id="playButtonsHolder">

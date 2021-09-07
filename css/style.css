@@ -1,10 +1,11 @@
 body {
-  background: #fff;
   display: flex;
   flex-direction: row;
   overflow: hidden;
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
+  background: rgb(88,182,69);
+  background: radial-gradient(circle, rgba(88,182,69,1) 0%, rgba(79,187,13,1) 25%, rgba(6,91,29,1) 100%);
 }
 
 /* Home */
@@ -136,6 +137,7 @@ body {
   flex-direction: column;
   width: 100vw;
   display: none;
+  color: #fff;
 }
 
 /* SCOREBOARD */
@@ -227,10 +229,88 @@ body {
   content: "€";
 }
 
+.tableTextHolder{
+	background: rgba(66, 66, 66, 0.5);
+}
+
+.betChip {
+	position: relative;
+	display: block;
+	margin: 30px auto;
+	width: 100px;
+	height: 100px;
+	border: 13px dashed white;
+	border-radius: 50%;
+	line-height: 75px;
+	text-align: center;
+	font-family: Helvetica;
+	color: white;
+	font-weight: bold;
+	font-size: x-large;
+}
+.betChip:before {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: -16px;
+	border-radius: 50%;
+	background: red;
+	content: '';
+}
+.betChip:after {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: 5px;
+	border: 3px dashed white;
+	border-radius: 50%;
+	background: rgba(0,0,0,0.4);
+	content: '';
+}
+
+@media screen and (max-width: 750px) {
+	.betChip {
+		width: 50px;
+		height: 50px;
+		border: 6px dashed white;
+		line-height: 40px;
+		font-size: x-small;
+	}
+	.betChip:before {
+		margin: -8px;
+	}
+  }
+
+.chipGreen:before{
+	background: green;
+}
+.chipRed:before{
+	background: red;
+}
+.chipBlue:before{
+	background: blue;
+}
+.chipOrange:before{
+	background: orange;
+}
+.chipBlack:before{
+	background: black;
+}
+.chipSilver:before{
+	background: silver;
+}
+
 /* HISTORY */
 #historyLog {
   height: 30vh;
   overflow-y: scroll;
+  color: #000;
 }
 
 .historyMessage {
@@ -477,6 +557,15 @@ body {
 	font-size: 12px;
 }
 
+@media screen and (max-width: 750px) {
+	.playingCard.playingCard--small,
+	.playingCard.playingCard--small .playingCard__backface {
+		width: 70px;
+		height: 100px;
+		font-size: 6px;
+	}
+  }
+
 .playingCard.playingCard--small .playingCard__tab {
 	width: 12%;
 	font-size: 1.7em;
@@ -502,8 +591,10 @@ body {
 .hand {
 	padding: 15px;
 	box-sizing: border-box;
+	/*
 	background: #F4F4F4;
 	border-top: 1px solid #F1F1F1;
+	*/
 }
 
 .hand--table {
@@ -515,7 +606,7 @@ body {
 	transform: none !important;
 	cursor: default;
 }
-s
+
 .hand__title {
 	display: block;
 	font-size: 12px;
@@ -527,6 +618,7 @@ s
 	display: flex;
 	align-items: center;
 	flex-flow: row;
+	justify-content: center;
 }
 
 .hand__playingCards .playingCard {
